@@ -1,0 +1,156 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.banner {
+    background-image: url('/images/auditorio.jpg');
+    min-height: 60vh;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+}
+.navbar {
+    padding-top: 0 !important;
+}
+
+nav .nav-link {
+    font-size: 1.5rem !important;
+    color: #FFF !important;
+}
+.nav-link:hover {
+    text-decoration:underline;
+}
+
+#negro {
+    font-size: 1rem !important;
+    color: #212529 !important;
+}
+#negro:hover {
+    color: #1a1e21;
+    background-color: #e9ecef;
+    text-decoration: none;
+}
+
+#siteIcon {
+    background-color: #fff;
+    border-radius: 0 0 10px 10px;
+    height: 120px;
+    top: 0;
+    margin-left: 10px;
+    padding: 0 10px;
+    border-bottom: 1px #ddd solid;
+    -webkit-box-shadow: 0 2px 8px rgba(0,0,0,.175);
+    box-shadow: 0 2px 8px rgba(0,0,0,.175);
+}
+
+.ms-siteicon-a {
+    display: inline-block;
+    max-width: 180px;
+    max-height: 64px;
+}
+
+#logo {
+    background-color: #fff;
+    border-radius: 0 0 10px 10px;
+    height: 120px;
+}
+#logo-centrado {
+    background-color: #fff;
+    border-radius: 10px;
+    height: 120px;
+}
+.fw-white {
+    color: #fff !important;
+}
+
+#fila-cuenta{
+    max-width: 50%;
+}
+
+.cuenta {
+    padding-top: 3rem;
+    font-size: 4rem;
+    color: #ff8a00;
+    letter-spacing: 3px;
+}
+
+.titulo-cuenta {
+    font-size: 1rem !important;
+    color: #ff8a00;
+    letter-spacing: 3px;
+    line-height: 0;
+}
+
+.fw-titulo-1 {
+    color: #00acc9;
+    text-align: center;
+    text-transform: uppercase;
+}
+.fw-titulo-conf {
+    color: #00acc9;
+    text-transform: uppercase;
+}
+
+#programacion .btn-outline-info {
+    /* color: #00acc9 !important; */
+    font-size: 5rem !important;
+}
+
+.bg-azul-claro {
+    background-color: #00acc9;
+}
+
+.bg-azul-oscuro {
+    background-color: rgb(32, 41, 69);
+}
+
+.footer-heading {
+    color: rgb(0, 172, 201);
+}
+
+.logo-da {
+    width: 150px
+}
+
+.bg-deg {
+    background-color: #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+}
+
+.alto-100 {
+    height: 100vh;
+}
+
+.card {
+    min-width: 50% !important;
+}
+
+.fa-star {
+    cursor: pointer !important;
+}
+
+.bg-blue {
+    background-color: #4473C5;
+    color: white !important;
+}
+
+.bg-yellow {
+    background-color:#FED967;
+}
+
+.bg-blue a {
+    color: white !important;
+}
+
+#sistemas {
+    background-color: #4473C5;
+}
+#civil {
+    background-color: #FED967;
+}
+
+#logo-blanco {
+    max-width: 400px;
+    filter: drop-shadow(-2px 2px 15px rgba(255, 255, 255, 0.7));
+}

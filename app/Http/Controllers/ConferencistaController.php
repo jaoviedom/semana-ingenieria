@@ -16,11 +16,10 @@ class ConferencistaController extends Controller
      */
     public function index()
     {
-        $conferencistas = Conferencistas::all();
-        $eventos = Eventos::all();
-        $datos['conferencistas'] = Conferencista::paginate(5);
+        $eventos = Evento::all();
         $conferencistas = Conferencista::paginate(5);
-        return view('conferencista.index', compact('datos', 'conferencistas', 'eventos' ));        
+        $datos['conferencistas'] = $conferencistas;
+        return view('conferencista.index', compact('datos', 'conferencistas', 'eventos'));        
     }
 
     /**

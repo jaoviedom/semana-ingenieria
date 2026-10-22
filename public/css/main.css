@@ -151,6 +151,13 @@ nav .nav-link {
 }
 
 #logo-blanco {
-    max-width: 400px;
-    filter: drop-shadow(-2px 2px 15px rgba(255, 255, 255, 0.7));
+    width: 90%;
+    max-width: 650px;
+    filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 35px rgba(255, 255, 255, 0.65));
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+#logo-blanco:hover {
+    transform: scale(1.02);
+    filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 45px rgba(255, 255, 255, 0.85));
 }

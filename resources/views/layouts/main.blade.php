@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('flag-icons/css/flag-icons.min.css') }}">
-    <title>VI Semana Internacional de la Ingeniería UCC :: Conferencista</title>
+    <title>VII Bienal Internacional de Ingeniería</title>
 </head>
 <body>
     <header>
@@ -82,12 +82,10 @@
                 </div>
             </div> --}}
             <div class="text-center mt-3">
-                <img src="{{ asset('images/logo-evento.png') }}" alt="Logo UCC" class="mb-3" id="logo-blanco">
+                <img src="{{ asset('images/logo-evento.png') }}" alt="Logo Bienal" class="mb-3 img-fluid" id="logo-blanco">
             </div>
             <div class="text-center py-5">
-                {{-- <img src="{{ asset('images/logo-blanco.png') }}" alt="Logo UCC" class="img-fluid mb-3"> --}}
-                {{-- <h1 class="display-4 fw-normal fw-white">VI Semana Internacional de la Ingeniería</h1> --}}
-                <h3 class="fw-white">17 - 20 de mayo de 2022. Ibagué, Tolima, Colombia.</h3>
+                <h3 class="fw-white">28 - 30 de octubre de 2026. Ibagué, Tolima, Colombia.</h3>
             </div>
         </div>
 
@@ -115,11 +113,7 @@
         <div class="row text-center bg-azul-claro py-3">
             <div class="container">
                 <p>Universidad Cooperativa de Colombia - Campus Ibagué, Espinal</p>
-                <p>Otra creación de Jose Oviedo & Andrés Arciniegas
-                    <a href="http://desarrollandoapps.net" target="_blank" class="text-decoration-none link-light">
-                        <img src="{{ asset('images/logo-da.svg') }}" alt="Logo desarrollandoApps" class="logo-da ms-3">
-                </a>
-                </p>
+                <p>Otra creación de Jose Oviedo</p>
             </div>
         </div>
     </footer>

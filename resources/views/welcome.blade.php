@@ -2,35 +2,32 @@
 
 @section('content')
 <div class="row py-5 border-bottom"">
-    <p>La Semana Internacional de Ingenierías, se ha convertido a lo largo de sus versiones anuales en un referente académico para los estudiantes y público externo relacionados o vinculados con la Ingeniería civil y la Ingeniería de sistemas, siendo estos programas activos en el Campus Ibagué-El Espinal, de la Universidad Cooperativa de Colombia.</p>
-    <p>En este marco académico se desarrollan conferencias en temas de vanguardia con invitados de orden nacional e internacional, se desarrollan talleres en temas específicos para distintos públicos, concursos de corte académico para los estudiantes, presentación de ponencias de los semilleros de investigación, presentación de posters de los trabajos finales de curso, en fin, bastantes actividades para convertir a la "VI Semana Internacional de Ingenierías", en un evento que nos muestre la importancia de las disciplinas en el entorno global al cual pertenecemos.</p>
+    <p>La VII Bienal Internacional de Ingeniería constituye un escenario de encuentro académico, científico y profesional para compartir conocimiento, impulsar la innovación y fortalecer la relación entre la universidad, el sector público, las organizaciones y la sociedad. En este marco, la programación del programa de Ingeniería de Sistemas propone una agenda conectada con los principales desafíos de la transformación digital y con las oportunidades de desarrollo del Tolima y de Colombia.</p>
+    <p>Las conferencias, talleres demostrativos y espacios de conversación contemplan temas de actualidad como inteligencia artificial, computación de alto desempeño, robótica, gobernanza de IA, accesibilidad web, analítica y visualización de datos, agentes inteligentes, prácticas MLOps, ciberseguridad, software libre y soberanía tecnológica. La combinación de reflexión conceptual y experiencias prácticas busca promover aprendizajes aplicables a proyectos académicos, empresariales e institucionales.</p>
     <p class="text-center fs-2">¡Bienvenidos!</p>
 </div>
 <div class="row" id="programacion">
     <h2 class="py-5 fw-titulo-1">Programación</h2>
-    <div class="row my-4 px-0 mx-0 pb-md-4">
-        <div class="col-6 col-md-3 text-center mb-4 mb-md-0">
-            <button class="btn btn-outline-info lh-1 me-3" onclick="verDia(1)" id="btnDia1">
-                <span class="d-block">17</span>
-                <span class="d-block fs-6">Mayo</span>
+    <div class="row my-4 justify-content-center g-4 dias-selector-container">
+        <div class="col-12 col-md-4 d-flex justify-content-center">
+            <button class="btn btn-dia-selector active" onclick="verDia(1)" id="btnDia1" type="button">
+                <span class="dia-etiqueta"><i class="fas fa-calendar-day me-1"></i> Día 1 · Miércoles</span>
+                <span class="dia-numero">28</span>
+                <span class="dia-mes">Octubre 2026</span>
             </button>
         </div>
-        <div class="col-6 col-md-3 text-center mb-4 mb-md-0">
-            <button class="btn btn-outline-info lh-1 me-3" onclick="verDia(2)" id="btnDia2">
-                <span class="d-block">18</span>
-                <span class="d-block fs-6">Mayo</span>
+        <div class="col-12 col-md-4 d-flex justify-content-center">
+            <button class="btn btn-dia-selector" onclick="verDia(2)" id="btnDia2" type="button">
+                <span class="dia-etiqueta"><i class="fas fa-calendar-day me-1"></i> Día 2 · Jueves</span>
+                <span class="dia-numero">29</span>
+                <span class="dia-mes">Octubre 2026</span>
             </button>
         </div>
-        <div class="col-6 col-md-3 text-center mb-4 mb-md-0">
-            <button class="btn btn-outline-info lh-1 me-3" onclick="verDia(3)" id="btnDia3">
-                <span class="d-block">19</span>
-                <span class="d-block fs-6">Mayo</span>
-            </button>
-        </div>
-        <div class="col-6 col-md-3 text-center">
-            <button class="btn btn-outline-info lh-1 me-3" onclick="verDia(4)" id="btnDia4">
-                <span class="d-block">20</span>
-                <span class="d-block fs-6">Mayo</span>
+        <div class="col-12 col-md-4 d-flex justify-content-center">
+            <button class="btn btn-dia-selector" onclick="verDia(3)" id="btnDia3" type="button">
+                <span class="dia-etiqueta"><i class="fas fa-calendar-day me-1"></i> Día 3 · Viernes</span>
+                <span class="dia-numero">30</span>
+                <span class="dia-mes">Octubre 2026</span>
             </button>
         </div>
     </div>
@@ -307,80 +304,32 @@
     <script>
         verDia(1);
         function verDia(dia) {
-            switch(dia) {
-                case 1:
-                    document.getElementById('btnDia1').classList.add('active');
-                    document.getElementById('btnDia2').classList.remove('active');
-                    document.getElementById('btnDia3').classList.remove('active');
-                    document.getElementById('btnDia4').classList.remove('active');
-                    document.getElementById('cUno').classList.remove('visually-hidden');
-                    document.getElementById('cDos').classList.add('visually-hidden');
-                    document.getElementById('cTres').classList.add('visually-hidden');
-                    document.getElementById('cCuatro').classList.add('visually-hidden');
-                    document.getElementById('tUno').classList.remove('visually-hidden');
-                    document.getElementById('tDos').classList.add('visually-hidden');
-                    document.getElementById('tTres').classList.add('visually-hidden');
-                    document.getElementById('tCuatro').classList.add('visually-hidden');
-                    document.getElementById('pUno').classList.remove('visually-hidden');
-                    document.getElementById('pDos').classList.add('visually-hidden');
-                    document.getElementById('pTres').classList.add('visually-hidden');
-                    document.getElementById('pCuatro').classList.add('visually-hidden');
-                    break;
-                case 2:
-                    document.getElementById('btnDia2').classList.add('active');
-                    document.getElementById('btnDia1').classList.remove('active');
-                    document.getElementById('btnDia3').classList.remove('active');
-                    document.getElementById('btnDia4').classList.remove('active');
-                    document.getElementById('cDos').classList.remove('visually-hidden');
-                    document.getElementById('cUno').classList.add('visually-hidden');
-                    document.getElementById('cTres').classList.add('visually-hidden');
-                    document.getElementById('cCuatro').classList.add('visually-hidden');
-                    document.getElementById('tDos').classList.remove('visually-hidden');
-                    document.getElementById('tUno').classList.add('visually-hidden');
-                    document.getElementById('tTres').classList.add('visually-hidden');
-                    document.getElementById('tCuatro').classList.add('visually-hidden');
-                    document.getElementById('pDos').classList.remove('visually-hidden');
-                    document.getElementById('pUno').classList.add('visually-hidden');
-                    document.getElementById('pTres').classList.add('visually-hidden');
-                    document.getElementById('pCuatro').classList.add('visually-hidden');
-                    break;
-                case 3:
-                    document.getElementById('btnDia3').classList.add('active');
-                    document.getElementById('btnDia2').classList.remove('active');
-                    document.getElementById('btnDia1').classList.remove('active');
-                    document.getElementById('btnDia4').classList.remove('active');
-                    document.getElementById('cTres').classList.remove('visually-hidden');
-                    document.getElementById('cDos').classList.add('visually-hidden');
-                    document.getElementById('cUno').classList.add('visually-hidden');
-                    document.getElementById('cCuatro').classList.add('visually-hidden');
-                    document.getElementById('tTres').classList.remove('visually-hidden');
-                    document.getElementById('tDos').classList.add('visually-hidden');
-                    document.getElementById('tUno').classList.add('visually-hidden');
-                    document.getElementById('tCuatro').classList.add('visually-hidden');
-                    document.getElementById('pTres').classList.remove('visually-hidden');
-                    document.getElementById('pDos').classList.add('visually-hidden');
-                    document.getElementById('pUno').classList.add('visually-hidden');
-                    document.getElementById('pCuatro').classList.add('visually-hidden');
-                    break;
-                case 4:
-                    document.getElementById('btnDia4').classList.add('active');
-                    document.getElementById('btnDia2').classList.remove('active');
-                    document.getElementById('btnDia3').classList.remove('active');
-                    document.getElementById('btnDia1').classList.remove('active');
-                    document.getElementById('cCuatro').classList.remove('visually-hidden');
-                    document.getElementById('cDos').classList.add('visually-hidden');
-                    document.getElementById('cTres').classList.add('visually-hidden');
-                    document.getElementById('cUno').classList.add('visually-hidden');
-                    document.getElementById('tCuatro').classList.remove('visually-hidden');
-                    document.getElementById('tDos').classList.add('visually-hidden');
-                    document.getElementById('tTres').classList.add('visually-hidden');
-                    document.getElementById('tUno').classList.add('visually-hidden');
-                    document.getElementById('pCuatro').classList.remove('visually-hidden');
-                    document.getElementById('pDos').classList.add('visually-hidden');
-                    document.getElementById('pTres').classList.add('visually-hidden');
-                    document.getElementById('pUno').classList.add('visually-hidden');
-                    break;
-            }
+            // Actualizar estado activo en los botones de días
+            [1, 2, 3].forEach(d => {
+                const btn = document.getElementById('btnDia' + d);
+                if (btn) {
+                    if (d === dia) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                }
+            });
+
+            // Actualizar visibilidad de conferencias, talleres y ponencias
+            const suffixMap = { 1: 'Uno', 2: 'Dos', 3: 'Tres', 4: 'Cuatro' };
+            ['c', 't', 'p'].forEach(prefix => {
+                [1, 2, 3, 4].forEach(d => {
+                    const el = document.getElementById(prefix + suffixMap[d]);
+                    if (el) {
+                        if (d === dia) {
+                            el.classList.remove('visually-hidden');
+                        } else {
+                            el.classList.add('visually-hidden');
+                        }
+                    }
+                });
+            });
         }
     </script>
 @endsection

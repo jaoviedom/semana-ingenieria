@@ -92,9 +92,95 @@ nav .nav-link {
     text-transform: uppercase;
 }
 
-#programacion .btn-outline-info {
-    /* color: #00acc9 !important; */
-    font-size: 5rem !important;
+/* Selector moderno de días de programación */
+.dias-selector-container {
+    gap: 1.5rem 0;
+}
+
+.btn-dia-selector {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    padding: 1.5rem 1rem;
+    border-radius: 1.25rem !important;
+    border: 2px solid #e2e8f0 !important;
+    background: #ffffff !important;
+    color: #1e293b !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer;
+    overflow: hidden;
+    text-align: center;
+}
+
+.btn-dia-selector:hover {
+    transform: translateY(-5px);
+    border-color: #00acc9 !important;
+    box-shadow: 0 14px 28px rgba(0, 172, 201, 0.2);
+}
+
+.btn-dia-selector .dia-etiqueta {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #00acc9;
+    margin-bottom: 0.4rem;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.btn-dia-selector .dia-numero {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #0f172a;
+    display: block;
+    letter-spacing: -0.02em;
+    transition: color 0.3s ease;
+}
+
+.btn-dia-selector .dia-mes {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #64748b;
+    margin-top: 0.35rem;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+/* Estado Activo */
+.btn-dia-selector.active {
+    background: linear-gradient(135deg, #0093E9 0%, #00acc9 100%) !important;
+    border-color: transparent !important;
+    color: #ffffff !important;
+    box-shadow: 0 12px 28px rgba(0, 147, 233, 0.38) !important;
+    transform: translateY(-3px);
+}
+
+.btn-dia-selector.active .dia-etiqueta {
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.btn-dia-selector.active .dia-numero {
+    color: #ffffff !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn-dia-selector.active .dia-mes {
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.btn-dia-selector.active::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 38px;
+    height: 4px;
+    background: #ffffff;
+    border-radius: 9999px;
 }
 
 .bg-azul-claro {

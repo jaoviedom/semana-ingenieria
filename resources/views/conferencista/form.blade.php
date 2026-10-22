@@ -37,7 +37,7 @@
 
     <label for="foto">Foto: </label>
     @if ( isset( $conferencista->foto ) )
-    <img class="img-thumbnail img-fluid" src="{{ asset('storage') . '/' . $conferencista->foto }}" width="50" alt="">
+    <img class="img-thumbnail img-fluid" src="{{ $conferencista->foto_url }}" width="50" alt="">
     @endif
 
     <input type="file" class="form-control" name="foto" id="foto">

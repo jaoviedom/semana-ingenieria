@@ -34,7 +34,7 @@
                     <tr>
                         <td>{{ $conferencista->id}}</td>
                         <td>
-                            <img class="img-thumbnail img-fluid" src="{{ asset('storage') . '/' . $conferencista->foto }}" width="50" alt="">
+                            <img class="img-thumbnail img-fluid" src="{{ $conferencista->foto_url }}" width="50" alt="">
                         </td>
                         <td><span class="fi fi-{{ $conferencista->pais }}"></span></td>
                         <td>{{ $conferencista->nombre}}</td>

@@ -61,12 +61,17 @@ class ConferencistaController extends Controller
         $datosConferencista = request()->except( '_token' );
         if( $request->hasFile('foto') ) {
             $datosConferencista['foto'] = $request->file('foto')->store( 'uploads', 'public' );
+        } else {
+            $datosConferencista['foto'] = 'uploads/default.png';
         }
+
+        $datosConferencista['created_at'] = now();
+        $datosConferencista['updated_at'] = now();
 
         Conferencista::insert( $datosConferencista );
 
         //return response()->json( $datosConferencista );
-        return redirect( 'conferencista' )->with( 'mensaje', 'Conferencista modificado con éxito');
+        return redirect( 'conferencista' )->with( 'mensaje', 'Conferencista registrado con éxito');
     }
 
     /**
@@ -128,10 +133,13 @@ class ConferencistaController extends Controller
         $datosConferencista = request()->except( ['_token', '_method'] );
         if( $request->hasFile('foto') ) {
                 $conferencista = Conferencista::findOrFail( $id );
-                Storage::delete( 'public/' . $conferencista->foto );
+                if ( $conferencista->foto && $conferencista->foto !== 'uploads/default.png' ) {
+                    Storage::delete( 'public/' . $conferencista->foto );
+                }
                 $datosConferencista['foto'] = $request->file('foto')->store('uploads', 'public');
         }
 
+        $datosConferencista['updated_at'] = now();
         Conferencista::where( 'id', "=", $id )->update( $datosConferencista );
         return redirect('conferencista' )->with( 'mensaje', 'Conferencista modificado con éxito');
     }
@@ -146,11 +154,12 @@ class ConferencistaController extends Controller
     {
         //
         $conferencista = Conferencista::findOrFail( $id );
-        if( Storage::delete( 'public/' . $conferencista->foto ) ) 
+        if ( $conferencista->foto && $conferencista->foto !== 'uploads/default.png' ) 
         {
-            Conferencista::destroy( $id );
+            Storage::delete( 'public/' . $conferencista->foto );
         }
+        Conferencista::destroy( $id );
 
-        return redirect('conferencista')->with( 'mensaje', 'Conferencista eliminado con éxito');;
+        return redirect('conferencista')->with( 'mensaje', 'Conferencista eliminado con éxito');
     }
 }

@@ -6,7 +6,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-3">
-                    <img src="{{ asset('storage') . '/' . $conferencista->foto }}" alt="Foto" class="img-fluid">
+                    <img src="{{ $conferencista->foto_url }}" alt="Foto" class="img-fluid">
                 </div>
                 <div class="col-md-9">
                     <h3 class="mb-3">{{ $conferencista->nombre }} <span class="ms-3 fi fi-{{ $conferencista->pais }}"></span></h3>

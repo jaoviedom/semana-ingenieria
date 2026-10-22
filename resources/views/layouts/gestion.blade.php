@@ -42,7 +42,7 @@
                                     Generar QR Calificación
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    @foreach ($eventos as $evento)
+                                    @foreach (($eventos ?? []) as $evento)
                                         <li><a class="dropdown-item" href="{{ route('enlaceCalificacion', $evento->id) }}">{{ $evento->tipoEvento }} - {{ $evento->tema }}</a></li>
                                     @endforeach
                                 </ul>

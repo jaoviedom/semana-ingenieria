@@ -252,12 +252,14 @@ class EventoController extends Controller
 
     public function enlaceCalificacion($id)
     {
-        $ruta = "http://semanaingenieriaucc.desarrollandoapps.net/eventos/calificar/$id";
+        $ruta = route('verCalificarEvento', $id);
         $evento = Evento::join('conferencistas', 'eventos.conferencista_id', 'conferencistas.id')
                             ->where('eventos.id', $id)
-                            ->select('eventos.tema', 'conferencistas.nombre', 'conferencistas.pais', 'conferencistas.foto')
+                            ->select('eventos.id', 'eventos.tema', 'conferencistas.nombre', 'conferencistas.pais', 'conferencistas.foto')
                             ->first();
-        QrCode::generate($ruta, '../public/qrcodes/qrcode' . $id . '.svg');
+        
+        $archivoDestino = public_path('qrcodes/qrcode' . $id . '.svg');
+        QrCode::generate($ruta, $archivoDestino);
         $rutaArchivo = 'qrcodes/qrcode' . $id . '.svg';
         return view('qr-calificacion', compact('evento', 'rutaArchivo'));
     }

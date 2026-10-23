@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(DiaSeeder::class);
         $this->call(ConferencistaSeeder::class);
         $this->call(EventoSeeder::class);
     }

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('flag-icons/css/flag-icons.min.css') }}">
-    <title>VI Semana Internacional de la Ingeniería UCC :: Conferencista</title>
+    <title>VII Bienal Internacional de Ingeniería :: Gestión</title>
 </head>
 <body>
     <header>

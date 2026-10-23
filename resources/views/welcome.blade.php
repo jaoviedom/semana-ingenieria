@@ -34,19 +34,6 @@
 </div>
 
 <div class="row my-4" id="programacion-dia">
-    <!-- Leyenda de Programas -->
-    <div class="col-12 mb-4">
-        <div class="leyenda-programas-container">
-            <span class="text-muted small fw-bold text-uppercase me-2" style="letter-spacing: 0.05em;"><i class="fas fa-layer-group me-1"></i> Programas:</span>
-            <span class="badge-programa-pill badge-programa-sistemas">
-                <span class="dot-indicator"></span> Ingeniería de Sistemas
-            </span>
-            <span class="badge-programa-pill badge-programa-civil">
-                <span class="dot-indicator"></span> Ingeniería Civil
-            </span>
-        </div>
-    </div>
-
     <!-- Pestañas de Navegación -->
     <div class="col-12 mb-4">
         <ul class="nav nav-tabs nav-tabs-bienal" id="myTab" role="tablist">
@@ -565,6 +552,18 @@
                     </table>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Leyenda de Programas -->
+    <div class="pt-2 col-12">
+        <div class="leyenda-programas-container justify-content-end">
+            <span class="badge-programa-pill badge-programa-sistemas">
+                <span class="dot-indicator"></span> Ingeniería de Sistemas
+            </span>
+            <span class="badge-programa-pill badge-programa-civil">
+                <span class="dot-indicator"></span> Ingeniería Civil
+            </span>
         </div>
     </div>
 </div>

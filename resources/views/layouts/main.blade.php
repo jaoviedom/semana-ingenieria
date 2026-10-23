@@ -37,9 +37,6 @@
                                 <a class="nav-link" href="{{ route('empresas') }}">Aliados</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('universidades') }}">Universidades</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="mailto:dennis.martinez@ucc.edu.co">Contacto</a>
                             </li>
                             @guest
@@ -63,24 +60,6 @@
                     </div>
                 </div>
             </nav>
-            {{-- <div class="fila-cuenta text-center">
-                <div class="d-inline-block me-3">
-                    <div class="cuenta" id="dias">00</div>
-                    <div class="titulo-cuenta">DÍAS</div>
-                </div>
-                <div class="d-inline-block me-3">
-                    <div class="cuenta" id="horas">00</div>
-                    <div class="titulo-cuenta">HORAS</div>
-                </div>
-                <div class="d-inline-block me-3">
-                    <div class="cuenta" id="minutos">00</div>
-                    <div class="titulo-cuenta">MINUTOS</div>
-                </div>
-                <div class="d-inline-block">
-                    <div class="cuenta" id="segundos">00</div>
-                    <div class="titulo-cuenta">SEGUNDOS</div>
-                </div>
-            </div> --}}
             <div class="text-center mt-3">
                 <img src="{{ asset('images/logo-evento.png') }}" alt="Logo Bienal" class="mb-3 img-fluid" id="logo-blanco">
             </div>

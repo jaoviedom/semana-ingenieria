@@ -260,24 +260,264 @@ nav .nav-link {
     cursor: pointer !important;
 }
 
-.bg-blue {
-    background-color: #4473C5;
-    color: white !important;
+/* ==========================================================================
+   Sección de Programación: Leyenda, Pestañas y Tablas de Actividades
+   ========================================================================== */
+
+/* Barra de leyenda de programas */
+.leyenda-programas-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1.25rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
 }
 
-.bg-yellow {
-    background-color:#FED967;
+.badge-programa-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 600;
 }
 
-.bg-blue a {
-    color: white !important;
+.badge-programa-sistemas {
+    background: rgba(37, 99, 235, 0.08);
+    color: #1d4ed8;
+    border: 1px solid rgba(37, 99, 235, 0.2);
 }
 
-#sistemas {
-    background-color: #4473C5;
+.badge-programa-sistemas .dot-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
 }
-#civil {
-    background-color: #FED967;
+
+.badge-programa-civil {
+    background: rgba(217, 119, 6, 0.08);
+    color: #b45309;
+    border: 1px solid rgba(217, 119, 6, 0.2);
+}
+
+.badge-programa-civil .dot-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #d97706;
+    box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.25);
+}
+
+/* Pestañas de tipo de evento (Conferencias, Talleres, Ponencias) */
+.nav-tabs-bienal {
+    display: inline-flex !important;
+    background: #f1f5f9;
+    padding: 0.35rem;
+    border-radius: 0.85rem;
+    border: none !important;
+    gap: 0.35rem;
+}
+
+.nav-tabs-bienal .nav-link {
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    color: #64748b !important;
+    padding: 0.65rem 1.4rem !important;
+    border-radius: 0.65rem !important;
+    border: none !important;
+    background: transparent !important;
+    transition: all 0.25s ease !important;
+    text-decoration: none !important;
+    display: inline-flex;
+    align-items: center;
+}
+
+.nav-tabs-bienal .nav-link:hover {
+    color: #0f172a !important;
+    background: rgba(255, 255, 255, 0.6) !important;
+}
+
+.nav-tabs-bienal .nav-link.active {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Tarjeta contenedora de la tabla */
+.tabla-actividades-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.tabla-actividades {
+    margin-bottom: 0 !important;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.tabla-actividades thead th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #e2e8f0;
+    border-top: none;
+    vertical-align: middle;
+}
+
+.tabla-actividades tbody td {
+    padding: 1.15rem 1.25rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease;
+}
+
+.tabla-actividades tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Distinción sobria de filas por programa */
+.row-programa-sistemas {
+    border-left: 4px solid #2563eb !important;
+    background-color: rgba(37, 99, 235, 0.015);
+}
+
+.row-programa-sistemas:hover td {
+    background-color: rgba(37, 99, 235, 0.045) !important;
+}
+
+.row-programa-civil {
+    border-left: 4px solid #d97706 !important;
+    background-color: rgba(217, 119, 6, 0.015);
+}
+
+.row-programa-civil:hover td {
+    background-color: rgba(217, 119, 6, 0.045) !important;
+}
+
+/* Elementos internos de las celdas */
+.horario-badge {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: #0f172a;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 0.35rem 0.65rem;
+    border-radius: 0.5rem;
+    white-space: nowrap;
+}
+
+.tema-titulo {
+    font-weight: 600;
+    color: #0f172a;
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 0.35rem;
+}
+
+.tema-programa-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+}
+
+.tema-programa-sistemas {
+    background: rgba(37, 99, 235, 0.1);
+    color: #1d4ed8;
+}
+
+.tema-programa-civil {
+    background: rgba(217, 119, 6, 0.1);
+    color: #b45309;
+}
+
+.ponente-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.ponente-nombre {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 0.95rem;
+}
+
+.btn-icon-perfil {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: #00acc9;
+    background: rgba(0, 172, 201, 0.1);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.btn-icon-perfil:hover {
+    background: #00acc9;
+    color: #ffffff;
+    transform: scale(1.08);
+}
+
+.btn-inscribirse-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 1.1rem;
+    background: linear-gradient(135deg, #0093E9 0%, #00acc9 100%);
+    color: #ffffff !important;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    text-decoration: none !important;
+    box-shadow: 0 3px 10px rgba(0, 172, 201, 0.25);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.btn-inscribirse-action:hover {
+    box-shadow: 0 5px 15px rgba(0, 172, 201, 0.4);
+    transform: translateY(-2px);
+    color: #ffffff !important;
+}
+
+.empty-state-cell {
+    padding: 3.5rem 1rem !important;
+    text-align: center;
+    color: #94a3b8;
+}
+
+.empty-state-cell i {
+    font-size: 2.25rem;
+    margin-bottom: 0.75rem;
+    color: #cbd5e1;
+    display: block;
 }
 
 #logo-blanco {

@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="row py-5 border-bottom"">
-    <p>La VII Bienal Internacional de Ingeniería constituye un escenario de encuentro académico, científico y profesional para compartir conocimiento, impulsar la innovación y fortalecer la relación entre la universidad, el sector público, las organizaciones y la sociedad. En este marco, la programación del programa de Ingeniería de Sistemas propone una agenda conectada con los principales desafíos de la transformación digital y con las oportunidades de desarrollo del Tolima y de Colombia.</p>
-    <p>Las conferencias, talleres demostrativos y espacios de conversación contemplan temas de actualidad como inteligencia artificial, computación de alto desempeño, robótica, gobernanza de IA, accesibilidad web, analítica y visualización de datos, agentes inteligentes, prácticas MLOps, ciberseguridad, software libre y soberanía tecnológica. La combinación de reflexión conceptual y experiencias prácticas busca promover aprendizajes aplicables a proyectos académicos, empresariales e institucionales.</p>
+<div class="row py-4 border-bottom"">
+    <p class="text-center fs-5">La VII Bienal Internacional de Ingeniería constituye un escenario de encuentro académico, científico y profesional para compartir conocimiento, impulsar la innovación y fortalecer la relación entre la universidad, el sector público, las organizaciones y la sociedad. En este marco, la programación del programa de Ingeniería de Sistemas propone una agenda conectada con los principales desafíos de la transformación digital y con las oportunidades de desarrollo del Tolima y de Colombia.</p>
+    <p class="text-center fs-5">Las conferencias, talleres demostrativos y espacios de conversación contemplan temas de actualidad como inteligencia artificial, computación de alto desempeño, robótica, gobernanza de IA, accesibilidad web, analítica y visualización de datos, agentes inteligentes, prácticas MLOps, ciberseguridad, software libre y soberanía tecnológica. La combinación de reflexión conceptual y experiencias prácticas busca promover aprendizajes aplicables a proyectos académicos, empresariales e institucionales.</p>
     <p class="text-center fs-2">¡Bienvenidos!</p>
 </div>
 <div class="row" id="programacion">
@@ -33,247 +33,540 @@
     </div>
 </div>
 
-<div class="row" id="programacion-dia">
-    <div>
-        <span id="sistemas">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="ms-3">Ingeniería de Sistemas</span>
+<div class="row my-4" id="programacion-dia">
+    <!-- Leyenda de Programas -->
+    <div class="col-12 mb-4">
+        <div class="leyenda-programas-container">
+            <span class="text-muted small fw-bold text-uppercase me-2" style="letter-spacing: 0.05em;"><i class="fas fa-layer-group me-1"></i> Programas:</span>
+            <span class="badge-programa-pill badge-programa-sistemas">
+                <span class="dot-indicator"></span> Ingeniería de Sistemas
+            </span>
+            <span class="badge-programa-pill badge-programa-civil">
+                <span class="dot-indicator"></span> Ingeniería Civil
+            </span>
+        </div>
     </div>
-    <div class="mb-3">
-        <span id="civil">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="ms-3">Ingeniería Civil</span>
+
+    <!-- Pestañas de Navegación -->
+    <div class="col-12 mb-4">
+        <ul class="nav nav-tabs nav-tabs-bienal" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="conferencias-tab" data-bs-toggle="tab" data-bs-target="#conferencias" type="button" role="tab" aria-controls="conferencias" aria-selected="true">
+                    <i class="fas fa-chalkboard-teacher me-2"></i>Conferencias
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="talleres-tab" data-bs-toggle="tab" data-bs-target="#talleres" type="button" role="tab" aria-controls="talleres" aria-selected="false">
+                    <i class="fas fa-laptop-code me-2"></i>Talleres
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="ponencias-tab" data-bs-toggle="tab" data-bs-target="#ponencias" type="button" role="tab" aria-controls="ponencias" aria-selected="false">
+                    <i class="fas fa-project-diagram me-2"></i>Ponencias
+                </button>
+            </li>
+        </ul>
     </div>
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="conferencias-tab" data-bs-toggle="tab" data-bs-target="#conferencias" type="button" role="tab" aria-controls="conferencias" aria-selected="true">Conferencias</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="talleres-tab" data-bs-toggle="tab" data-bs-target="#talleres" type="button" role="tab" aria-controls="talleres" aria-selected="false">Talleres</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="ponencias-tab" data-bs-toggle="tab" data-bs-target="#ponencias" type="button" role="tab" aria-controls="ponencias" aria-selected="false">Ponencias</button>
-        </li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content my-4">
-        <div class="tab-pane overflow-auto active" id="conferencias" role="tabpanel" aria-labelledby="conferencias-tab">
-            <table class="table table-hover mt-3">
-                <thead>
-                    <tr>
-                        <th>Horario</th>
-                        <th>Tema</th>
-                        <th>Conferencista</th>
-                        <th>País</th>
-                        <th>Inscripción</th>
-                    </tr>
-                </thead>
-                <tbody class="visually-hidden" id="cUno">
-                    @foreach ($cDia1 as $item)
-                        <tr class="@if($item->programa == "Sistemas") bg-blue @else bg-yellow @endif">
-                            <td>{{ $item->horario }}</td>
-                            <td>{{ $item->tema }}</td>
-                            <td>{{ $item->nombre }}<a href="{{ route('conferencista.show', $item->idConferencista) }}" class="ms-3"><i class="fas fa-eye"></i></a></td>
-                            <td class="text-center">
-                                <span class="fi fi-{{ $item->pais }}"></span>
-                            </td>
-                            <td class="text-center">
-                                <a href="{{ route('inscripcion', $item->id) }}"><i class="fas fa-sign-in-alt fa-2x"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tbody class="visually-hidden" id="cDos">
-                    @foreach ($cDia2 as $item)
-                        <tr class="@if($item->programa == "Sistemas") bg-blue @else bg-yellow @endif">
-                            <td>{{ $item->horario }}</td>
-                            <td>{{ $item->tema }}</td>
-                            <td>{{ $item->nombre }}<a href="{{ route('conferencista.show', $item->idConferencista) }}" class="ms-3"><i class="fas fa-eye"></i></a></td>
-                            <td class="text-center">
-                                <span class="fi fi-{{ $item->pais }}"></span>
-                            </td>
-                            <td class="text-center">
-                                <a href="{{ route('inscripcion', $item->id) }}" class=""><i class="fas fa-sign-in-alt fa-2x"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tbody class="visually-hidden" id="cTres">
-                    @foreach ($cDia3 as $item)
-                        <tr class="@if($item->programa == "Sistemas") bg-blue @else bg-yellow @endif">
-                            <td>{{ $item->horario }}</td>
-                            <td>{{ $item->tema }}</td>
-                            <td>{{ $item->nombre }}<a href="{{ route('conferencista.show', $item->idConferencista) }}" class="ms-3"><i class="fas fa-eye"></i></a></td>
-                            <td class="text-center">
-                                <span class="fi fi-{{ $item->pais }}"></span>
-                            </td>
-                            <td class="text-center">
-                                <a href="{{ route('inscripcion', $item->id) }}" class=""><i class="fas fa-sign-in-alt fa-2x"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tbody class="visually-hidden" id="cCuatro">
-                    @foreach ($cDia4 as $item)
-                        <tr class="@if($item->programa == "Sistemas") bg-blue @else bg-yellow @endif">
-                            <td>{{ $item->horario }}</td>
-                            <td>{{ $item->tema }}</td>
-                            <td>{{ $item->nombre }}<a href="{{ route('conferencista.show', $item->idConferencista) }}" class="ms-3"><i class="fas fa-eye"></i></a></td>
-                            <td class="text-center">
-                                <span class="fi fi-{{ $item->pais }}"></span>
-                            </td>
-                            <td class="text-center">
-                                <a href="{{ route('inscripcion', $item->id) }}" class=""><i class="fas fa-sign-in-alt fa-2x"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+    <!-- Contenido de las Pestañas -->
+    <div class="col-12">
+        <div class="tab-content">
+            <!-- PESTAÑA: CONFERENCIAS -->
+            <div class="tab-pane fade show active" id="conferencias" role="tabpanel" aria-labelledby="conferencias-tab">
+                <div class="tabla-actividades-card table-responsive">
+                    <table class="table tabla-actividades table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 22%;">Horario</th>
+                                <th style="width: 38%;">Tema</th>
+                                <th style="width: 22%;">Conferencista</th>
+                                <th class="text-center" style="width: 8%;">País</th>
+                                <th class="text-center" style="width: 10%;">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody class="visually-hidden" id="cUno">
+                            @forelse ($cDia1 as $item)
+                                <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
+                                    <td>
+                                        <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="tema-titulo">{{ $item->tema }}</div>
+                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                            {{ $item->programa ?? 'General' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="ponente-info">
+                                            <span class="ponente-nombre">{{ $item->nombre }}</span>
+                                            <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil" data-bs-toggle="tooltip" title="Ver perfil del conferencista">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
+                                            <i class="fas fa-ticket-alt"></i> Inscribirse
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="empty-state-cell">
+                                        <i class="far fa-calendar-times"></i>
+                                        <p class="mb-0 fw-medium">No hay conferencias programadas para este día.</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                        <tbody class="visually-hidden" id="cDos">
+                            @forelse ($cDia2 as $item)
+                                <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
+                                    <td>
+                                        <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="tema-titulo">{{ $item->tema }}</div>
+                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                            {{ $item->programa ?? 'General' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="ponente-info">
+                                            <span class="ponente-nombre">{{ $item->nombre }}</span>
+                                            <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil" data-bs-toggle="tooltip" title="Ver perfil del conferencista">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
+                                            <i class="fas fa-ticket-alt"></i> Inscribirse
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="empty-state-cell">
+                                        <i class="far fa-calendar-times"></i>
+                                        <p class="mb-0 fw-medium">No hay conferencias programadas para este día.</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                        <tbody class="visually-hidden" id="cTres">
+                            @forelse ($cDia3 as $item)
+                                <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
+                                    <td>
+                                        <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="tema-titulo">{{ $item->tema }}</div>
+                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                            {{ $item->programa ?? 'General' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="ponente-info">
+                                            <span class="ponente-nombre">{{ $item->nombre }}</span>
+                                            <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil" data-bs-toggle="tooltip" title="Ver perfil del conferencista">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
+                                            <i class="fas fa-ticket-alt"></i> Inscribirse
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="empty-state-cell">
+                                        <i class="far fa-calendar-times"></i>
+                                        <p class="mb-0 fw-medium">No hay conferencias programadas para este día.</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                        <tbody class="visually-hidden" id="cCuatro">
+                            @forelse ($cDia4 as $item)
+                                <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
+                                    <td>
+                                        <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="tema-titulo">{{ $item->tema }}</div>
+                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                            {{ $item->programa ?? 'General' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="ponente-info">
+                                            <span class="ponente-nombre">{{ $item->nombre }}</span>
+                                            <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil" data-bs-toggle="tooltip" title="Ver perfil del conferencista">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
+                                            <i class="fas fa-ticket-alt"></i> Inscribirse
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="empty-state-cell">
+                                        <i class="far fa-calendar-times"></i>
+                                        <p class="mb-0 fw-medium">No hay conferencias programadas para este día.</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PESTAÑA: TALLERES -->
+            <div class="tab-pane fade" id="talleres" role="tabpanel" aria-labelledby="talleres-tab">
+                <div class="tabla-actividades-card table-responsive">
+                    <table class="table tabla-actividades table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 22%;">Horario</th>
+                                <th style="width: 38%;">Tema</th>
+                                <th style="width: 22%;">Tallerista</th>
+                                <th class="text-center" style="width: 8%;">País</th>
+                                <th class="text-center" style="width: 10%;">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody class="visually-hidden" id="tUno">
+                            @forelse ($tDia1 as $item)
+                                <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
+                                    <td>
+                                        <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="tema-titulo">{{ $item->tema }}</div>
+                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                            {{ $item->programa ?? 'General' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="ponente-info">
+                                            <span class="ponente-nombre">{{ $item->nombre }}</span>
+                                            <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil" data-bs-toggle="tooltip" title="Ver perfil del tallerista">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
+                                            <i class="fas fa-ticket-alt"></i> Inscribirse
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="empty-state-cell">
+                                        <i class="far fa-calendar-times"></i>
+                                        <p class="mb-0 fw-medium">No hay talleres programados para este día.</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                        <tbody class="visually-hidden" id="tDos">
+                            @forelse ($tDia2 as $item)
+                                <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
+                                    <td>
+                                        <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="tema-titulo">{{ $item->tema }}</div>
+                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                            {{ $item->programa ?? 'General' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="ponente-info">
+                                            <span class="ponente-nombre">{{ $item->nombre }}</span>
+                                            <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil" data-bs-toggle="tooltip" title="Ver perfil del tallerista">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
+                                            <i class="fas fa-ticket-alt"></i> Inscribirse
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="empty-state-cell">
+                                        <i class="far fa-calendar-times"></i>
+                                        <p class="mb-0 fw-medium">No hay talleres programados para este día.</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                        <tbody class="visually-hidden" id="tTres">
+                            @forelse ($tDia3 as $item)
+                                <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
+                                    <td>
+                                        <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="tema-titulo">{{ $item->tema }}</div>
+                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                            {{ $item->programa ?? 'General' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="ponente-info">
+                                            <span class="ponente-nombre">{{ $item->nombre }}</span>
+                                            <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil" data-bs-toggle="tooltip" title="Ver perfil del tallerista">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
+                                            <i class="fas fa-ticket-alt"></i> Inscribirse
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="empty-state-cell">
+                                        <i class="far fa-calendar-times"></i>
+                                        <p class="mb-0 fw-medium">No hay talleres programados para este día.</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                        <tbody class="visually-hidden" id="tCuatro">
+                            @forelse ($tDia4 as $item)
+                                <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
+                                    <td>
+                                        <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="tema-titulo">{{ $item->tema }}</div>
+                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                            {{ $item->programa ?? 'General' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="ponente-info">
+                                            <span class="ponente-nombre">{{ $item->nombre }}</span>
+                                            <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil" data-bs-toggle="tooltip" title="Ver perfil del tallerista">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
+                                            <i class="fas fa-ticket-alt"></i> Inscribirse
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="empty-state-cell">
+                                        <i class="far fa-calendar-times"></i>
+                                        <p class="mb-0 fw-medium">No hay talleres programados para este día.</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PESTAÑA: PONENCIAS -->
+            <div class="tab-pane fade" id="ponencias" role="tabpanel" aria-labelledby="ponencias-tab">
+                <div class="tabla-actividades-card table-responsive">
+                    <table class="table tabla-actividades table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 22%;">Horario</th>
+                                <th style="width: 38%;">Tema</th>
+                                <th style="width: 22%;">Ponente</th>
+                                <th class="text-center" style="width: 8%;">País</th>
+                                <th class="text-center" style="width: 10%;">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody class="visually-hidden" id="pUno">
+                            @forelse ($pDia1 as $item)
+                                <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
+                                    <td>
+                                        <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="tema-titulo">{{ $item->tema }}</div>
+                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                            {{ $item->programa ?? 'General' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="ponente-info">
+                                            <span class="ponente-nombre">{{ $item->nombre }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
+                                            <i class="fas fa-ticket-alt"></i> Inscribirse
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="empty-state-cell">
+                                        <i class="far fa-calendar-times"></i>
+                                        <p class="mb-0 fw-medium">No hay ponencias programadas para este día.</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                        <tbody class="visually-hidden" id="pDos">
+                            @forelse ($pDia2 as $item)
+                                <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
+                                    <td>
+                                        <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="tema-titulo">{{ $item->tema }}</div>
+                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                            {{ $item->programa ?? 'General' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="ponente-info">
+                                            <span class="ponente-nombre">{{ $item->nombre }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
+                                            <i class="fas fa-ticket-alt"></i> Inscribirse
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="empty-state-cell">
+                                        <i class="far fa-calendar-times"></i>
+                                        <p class="mb-0 fw-medium">No hay ponencias programadas para este día.</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                        <tbody class="visually-hidden" id="pTres">
+                            @forelse ($pDia3 as $item)
+                                <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
+                                    <td>
+                                        <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="tema-titulo">{{ $item->tema }}</div>
+                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                            {{ $item->programa ?? 'General' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="ponente-info">
+                                            <span class="ponente-nombre">{{ $item->nombre }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
+                                            <i class="fas fa-ticket-alt"></i> Inscribirse
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="empty-state-cell">
+                                        <i class="far fa-calendar-times"></i>
+                                        <p class="mb-0 fw-medium">No hay ponencias programadas para este día.</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                        <tbody class="visually-hidden" id="pCuatro">
+                            @forelse ($pDia4 as $item)
+                                <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
+                                    <td>
+                                        <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="tema-titulo">{{ $item->tema }}</div>
+                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                            {{ $item->programa ?? 'General' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="ponente-info">
+                                            <span class="ponente-nombre">{{ $item->nombre }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
+                                            <i class="fas fa-ticket-alt"></i> Inscribirse
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="empty-state-cell">
+                                        <i class="far fa-calendar-times"></i>
+                                        <p class="mb-0 fw-medium">No hay ponencias programadas para este día.</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="tab-pane" id="talleres" role="tabpanel" aria-labelledby="talleres-tab">
-            <table class="table table-hover mt-3">
-                <thead>
-                    <tr>
-                        <th>Horario</th>
-                        <th>Tema</th>
-                        <th>Tallerista</th>
-                        <th>País</th>
-                        <th>Inscripción</th>
-                    </tr>
-                </thead>
-                <tbody class="visually-hidden" id="tUno">
-                    @foreach ($tDia1 as $item)
-                        <tr class="@if($item->programa == "Sistemas") bg-blue @else bg-yellow @endif">
-                            <td>{{ $item->horario }}</td>
-                            <td>{{ $item->tema }}</td>
-                            <td>{{ $item->nombre }}<a href="{{ route('conferencista.show', $item->idConferencista) }}" class="ms-3"><i class="fas fa-eye"></i></a></td>
-                            <td class="text-center">
-                                <span class="fi fi-{{ $item->pais }}"></span>
-                            </td>
-                            <td class="text-center">
-                                <a href="{{ route('inscripcion', $item->id) }}" class=""><i class="fas fa-sign-in-alt fa-2x"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tbody class="visually-hidden" id="tDos">
-                    @foreach ($tDia2 as $item)
-                        <tr class="@if($item->programa == "Sistemas") bg-blue @else bg-yellow @endif">
-                            <td>{{ $item->horario }}</td>
-                            <td>{{ $item->tema }}</td>
-                            <td>{{ $item->nombre }}<a href="{{ route('conferencista.show', $item->idConferencista) }}" class="ms-3"><i class="fas fa-eye"></i></a></td>
-                            <td class="text-center">
-                                <span class="fi fi-{{ $item->pais }}"></span>
-                            </td>
-                            <td class="text-center">
-                                <a href="{{ route('inscripcion', $item->id) }}" class=""><i class="fas fa-sign-in-alt fa-2x"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tbody class="visually-hidden" id="tTres">
-                    @foreach ($tDia3 as $item)
-                        <tr class="@if($item->programa == "Sistemas") bg-blue @else bg-yellow @endif">
-                            <td>{{ $item->horario }}</td>
-                            <td>{{ $item->tema }}</td>
-                            <td>{{ $item->nombre }}<a href="{{ route('conferencista.show', $item->idConferencista) }}" class="ms-3"><i class="fas fa-eye"></i></a></td>
-                            <td class="text-center">
-                                <span class="fi fi-{{ $item->pais }}"></span>
-                            </td>
-                            <td class="text-center">
-                                <a href="{{ route('inscripcion', $item->id) }}" class=""><i class="fas fa-sign-in-alt fa-2x"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tbody class="visually-hidden" id="tCuatro">
-                    @foreach ($tDia4 as $item)
-                        <tr class="@if($item->programa == "Sistemas") bg-blue @else bg-yellow @endif">
-                            <td>{{ $item->horario }}</td>
-                            <td>{{ $item->tema }}</td>
-                            <td>{{ $item->nombre }}<a href="{{ route('conferencista.show', $item->idConferencista) }}" class="ms-3"><i class="fas fa-eye"></i></a></td>
-                            <td class="text-center">
-                                <span class="fi fi-{{ $item->pais }}"></span>
-                            </td>
-                            <td class="text-center">
-                                <a href="{{ route('inscripcion', $item->id) }}" class=""><i class="fas fa-sign-in-alt fa-2x"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane" id="ponencias" role="tabpanel" aria-labelledby="ponencias-tab">
-            <table class="table table-hover mt-3">
-                <thead>
-                    <tr>
-                        <th>Horario</th>
-                        <th>Tema</th>
-                        <th>Ponente</th>
-                        <th>País</th>
-                        <th>Inscripción</th>
-                    </tr>
-                </thead>
-                <tbody class="visually-hidden" id="pUno">
-                    @foreach ($pDia1 as $item)
-                        <tr class="@if($item->programa == "Sistemas") bg-blue @else bg-yellow @endif">
-                            <td>{{ $item->horario }}</td>
-                            <td>{{ $item->tema }}</td>
-                            <td>{{ $item->nombre }}</td>
-                            <td class="text-center">
-                                <span class="fi fi-{{ $item->pais }}"></span>
-                            </td>
-                            <td class="text-center">
-                                <a href="" class=""><i class="fas fa-sign-in-alt fa-2x"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tbody class="visually-hidden" id="pDos">
-                    @foreach ($pDia2 as $item)
-                        <tr class="@if($item->programa == "Sistemas") bg-blue @else bg-yellow @endif">
-                            <td>{{ $item->horario }}</td>
-                            <td>{{ $item->tema }}</td>
-                            <td>{{ $item->nombre }}</td>
-                            <td class="text-center">
-                                <span class="fi fi-{{ $item->pais }}"></span>
-                            </td>
-                            <td class="text-center">
-                                <a href="" class=""><i class="fas fa-sign-in-alt fa-2x"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tbody class="visually-hidden" id="pTres">
-                    @foreach ($pDia3 as $item)
-                        <tr class="@if($item->programa == "Sistemas") bg-blue @else bg-yellow @endif">
-                            <td>{{ $item->horario }}</td>
-                            <td>{{ $item->tema }}</td>
-                            <td>{{ $item->nombre }}</td>
-                            <td class="text-center">
-                                <span class="fi fi-{{ $item->pais }}"></span>
-                            </td>
-                            <td class="text-center">
-                                <a href="" class=""><i class="fas fa-sign-in-alt fa-2x"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tbody class="visually-hidden" id="pCuatro">
-                    @foreach ($pDia4 as $item)
-                        <tr class="@if($item->programa == "Sistemas") bg-blue @else bg-yellow @endif">
-                            <td>{{ $item->horario }}</td>
-                            <td>{{ $item->tema }}</td>
-                            <td>{{ $item->nombre }}</td>
-                            <td class="text-center">
-                                <span class="fi fi-{{ $item->pais }}"></span>
-                            </td>
-                            <td class="text-center">
-                                <a href="" class=""><i class="fas fa-sign-in-alt fa-2x"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>  
+    </div>
 </div>
 
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">

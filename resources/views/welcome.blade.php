@@ -9,23 +9,23 @@
 <div class="row" id="programacion">
     <h2 class="py-5 fw-titulo-1">Programación</h2>
     <div class="row my-4 justify-content-center g-4 dias-selector-container">
-        <div class="col-12 col-md-4 d-flex justify-content-center">
+        <div class="col-4 d-flex justify-content-center">
             <button class="btn btn-dia-selector active" onclick="verDia(1)" id="btnDia1" type="button">
-                <span class="dia-etiqueta"><i class="fas fa-calendar-day me-1"></i> Día 1 · Miércoles</span>
+                <span class="dia-etiqueta d-none d-md-inline"><i class="fas fa-calendar-day me-1"></i> Día 1 · Miércoles</span>
                 <span class="dia-numero">28</span>
                 <span class="dia-mes">Octubre 2026</span>
             </button>
         </div>
-        <div class="col-12 col-md-4 d-flex justify-content-center">
+        <div class="col-4 d-flex justify-content-center">
             <button class="btn btn-dia-selector" onclick="verDia(2)" id="btnDia2" type="button">
-                <span class="dia-etiqueta"><i class="fas fa-calendar-day me-1"></i> Día 2 · Jueves</span>
+                <span class="dia-etiqueta d-none d-md-inline"><i class="fas fa-calendar-day me-1"></i> Día 2 · Jueves</span>
                 <span class="dia-numero">29</span>
                 <span class="dia-mes">Octubre 2026</span>
             </button>
         </div>
-        <div class="col-12 col-md-4 d-flex justify-content-center">
+        <div class="col-4 d-flex justify-content-center">
             <button class="btn btn-dia-selector" onclick="verDia(3)" id="btnDia3" type="button">
-                <span class="dia-etiqueta"><i class="fas fa-calendar-day me-1"></i> Día 3 · Viernes</span>
+                <span class="dia-etiqueta d-none d-md-inline"><i class="fas fa-calendar-day me-1"></i> Día 3 · Viernes</span>
                 <span class="dia-numero">30</span>
                 <span class="dia-mes">Octubre 2026</span>
             </button>
@@ -64,26 +64,38 @@
                     <table class="table tabla-actividades table-hover">
                         <thead>
                             <tr>
-                                <th style="width: 22%;">Horario</th>
-                                <th style="width: 38%;">Tema</th>
-                                <th style="width: 22%;">Conferencista</th>
-                                <th class="text-center" style="width: 8%;">País</th>
-                                <th class="text-center" style="width: 10%;">Acción</th>
+                                <th class="col-horario">Horario</th>
+                                <th class="col-tema">Tema</th>
+                                <th class="d-none d-md-table-cell" style="width: 22%;">Conferencista</th>
+                                <th class="text-center d-none d-md-table-cell" style="width: 8%;">País</th>
+                                <th class="text-center d-none d-md-table-cell" style="width: 10%;">Acción</th>
                             </tr>
                         </thead>
                         <tbody class="visually-hidden" id="cUno">
                             @forelse ($cDia1 as $item)
                                 <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
-                                    <td>
+                                    <td class="col-horario-td">
                                         <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
                                     </td>
-                                    <td>
+                                    <td class="col-tema-td">
                                         <div class="tema-titulo">{{ $item->tema }}</div>
-                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
-                                            {{ $item->programa ?? 'General' }}
-                                        </span>
+                                        <div class="d-flex flex-wrap align-items-center gap-2 mt-2">
+                                            <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                                {{ $item->programa ?? 'General' }}
+                                            </span>
+                                            <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action btn-inscribirse-mobile d-inline-flex d-md-none">
+                                                <i class="fas fa-ticket-alt"></i> Inscribirse
+                                            </a>
+                                        </div>
+                                        <div class="ponente-mobile-info d-flex align-items-center gap-2 mt-2 pt-1 border-top border-light d-md-none">
+                                            <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1rem;"></span>
+                                            <span class="small fw-semibold text-secondary text-truncate">{{ $item->nombre }}</span>
+                                            <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil-sm ms-auto" data-bs-toggle="tooltip" title="Ver perfil del conferencista">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
                                     </td>
-                                    <td>
+                                    <td class="d-none d-md-table-cell">
                                         <div class="ponente-info">
                                             <span class="ponente-nombre">{{ $item->nombre }}</span>
                                             <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil" data-bs-toggle="tooltip" title="Ver perfil del conferencista">
@@ -91,10 +103,10 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
                                             <i class="fas fa-ticket-alt"></i> Inscribirse
                                         </a>
@@ -112,16 +124,28 @@
                         <tbody class="visually-hidden" id="cDos">
                             @forelse ($cDia2 as $item)
                                 <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
-                                    <td>
+                                    <td class="col-horario-td">
                                         <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
                                     </td>
-                                    <td>
+                                    <td class="col-tema-td">
                                         <div class="tema-titulo">{{ $item->tema }}</div>
-                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
-                                            {{ $item->programa ?? 'General' }}
-                                        </span>
+                                        <div class="d-flex flex-wrap align-items-center gap-2 mt-2">
+                                            <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                                {{ $item->programa ?? 'General' }}
+                                            </span>
+                                            <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action btn-inscribirse-mobile d-inline-flex d-md-none">
+                                                <i class="fas fa-ticket-alt"></i> Inscribirse
+                                            </a>
+                                        </div>
+                                        <div class="ponente-mobile-info d-flex align-items-center gap-2 mt-2 pt-1 border-top border-light d-md-none">
+                                            <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1rem;"></span>
+                                            <span class="small fw-semibold text-secondary text-truncate">{{ $item->nombre }}</span>
+                                            <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil-sm ms-auto" data-bs-toggle="tooltip" title="Ver perfil del conferencista">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
                                     </td>
-                                    <td>
+                                    <td class="d-none d-md-table-cell">
                                         <div class="ponente-info">
                                             <span class="ponente-nombre">{{ $item->nombre }}</span>
                                             <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil" data-bs-toggle="tooltip" title="Ver perfil del conferencista">
@@ -129,10 +153,10 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
                                             <i class="fas fa-ticket-alt"></i> Inscribirse
                                         </a>
@@ -150,16 +174,28 @@
                         <tbody class="visually-hidden" id="cTres">
                             @forelse ($cDia3 as $item)
                                 <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
-                                    <td>
+                                    <td class="col-horario-td">
                                         <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
                                     </td>
-                                    <td>
+                                    <td class="col-tema-td">
                                         <div class="tema-titulo">{{ $item->tema }}</div>
-                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
-                                            {{ $item->programa ?? 'General' }}
-                                        </span>
+                                        <div class="d-flex flex-wrap align-items-center gap-2 mt-2">
+                                            <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                                {{ $item->programa ?? 'General' }}
+                                            </span>
+                                            <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action btn-inscribirse-mobile d-inline-flex d-md-none">
+                                                <i class="fas fa-ticket-alt"></i> Inscribirse
+                                            </a>
+                                        </div>
+                                        <div class="ponente-mobile-info d-flex align-items-center gap-2 mt-2 pt-1 border-top border-light d-md-none">
+                                            <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1rem;"></span>
+                                            <span class="small fw-semibold text-secondary text-truncate">{{ $item->nombre }}</span>
+                                            <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil-sm ms-auto" data-bs-toggle="tooltip" title="Ver perfil del conferencista">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
                                     </td>
-                                    <td>
+                                    <td class="d-none d-md-table-cell">
                                         <div class="ponente-info">
                                             <span class="ponente-nombre">{{ $item->nombre }}</span>
                                             <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil" data-bs-toggle="tooltip" title="Ver perfil del conferencista">
@@ -167,10 +203,10 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
                                             <i class="fas fa-ticket-alt"></i> Inscribirse
                                         </a>
@@ -188,16 +224,28 @@
                         <tbody class="visually-hidden" id="cCuatro">
                             @forelse ($cDia4 as $item)
                                 <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
-                                    <td>
+                                    <td class="col-horario-td">
                                         <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
                                     </td>
-                                    <td>
+                                    <td class="col-tema-td">
                                         <div class="tema-titulo">{{ $item->tema }}</div>
-                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
-                                            {{ $item->programa ?? 'General' }}
-                                        </span>
+                                        <div class="d-flex flex-wrap align-items-center gap-2 mt-2">
+                                            <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                                {{ $item->programa ?? 'General' }}
+                                            </span>
+                                            <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action btn-inscribirse-mobile d-inline-flex d-md-none">
+                                                <i class="fas fa-ticket-alt"></i> Inscribirse
+                                            </a>
+                                        </div>
+                                        <div class="ponente-mobile-info d-flex align-items-center gap-2 mt-2 pt-1 border-top border-light d-md-none">
+                                            <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1rem;"></span>
+                                            <span class="small fw-semibold text-secondary text-truncate">{{ $item->nombre }}</span>
+                                            <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil-sm ms-auto" data-bs-toggle="tooltip" title="Ver perfil del conferencista">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
                                     </td>
-                                    <td>
+                                    <td class="d-none d-md-table-cell">
                                         <div class="ponente-info">
                                             <span class="ponente-nombre">{{ $item->nombre }}</span>
                                             <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil" data-bs-toggle="tooltip" title="Ver perfil del conferencista">
@@ -205,10 +253,10 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
                                             <i class="fas fa-ticket-alt"></i> Inscribirse
                                         </a>
@@ -233,26 +281,38 @@
                     <table class="table tabla-actividades table-hover">
                         <thead>
                             <tr>
-                                <th style="width: 22%;">Horario</th>
-                                <th style="width: 38%;">Tema</th>
-                                <th style="width: 22%;">Tallerista</th>
-                                <th class="text-center" style="width: 8%;">País</th>
-                                <th class="text-center" style="width: 10%;">Acción</th>
+                                <th class="col-horario">Horario</th>
+                                <th class="col-tema">Tema</th>
+                                <th class="d-none d-md-table-cell" style="width: 22%;">Tallerista</th>
+                                <th class="text-center d-none d-md-table-cell" style="width: 8%;">País</th>
+                                <th class="text-center d-none d-md-table-cell" style="width: 10%;">Acción</th>
                             </tr>
                         </thead>
                         <tbody class="visually-hidden" id="tUno">
                             @forelse ($tDia1 as $item)
                                 <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
-                                    <td>
+                                    <td class="col-horario-td">
                                         <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
                                     </td>
-                                    <td>
+                                    <td class="col-tema-td">
                                         <div class="tema-titulo">{{ $item->tema }}</div>
-                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
-                                            {{ $item->programa ?? 'General' }}
-                                        </span>
+                                        <div class="d-flex flex-wrap align-items-center gap-2 mt-2">
+                                            <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                                {{ $item->programa ?? 'General' }}
+                                            </span>
+                                            <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action btn-inscribirse-mobile d-inline-flex d-md-none">
+                                                <i class="fas fa-ticket-alt"></i> Inscribirse
+                                            </a>
+                                        </div>
+                                        <div class="ponente-mobile-info d-flex align-items-center gap-2 mt-2 pt-1 border-top border-light d-md-none">
+                                            <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1rem;"></span>
+                                            <span class="small fw-semibold text-secondary text-truncate">{{ $item->nombre }}</span>
+                                            <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil-sm ms-auto" data-bs-toggle="tooltip" title="Ver perfil del tallerista">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
                                     </td>
-                                    <td>
+                                    <td class="d-none d-md-table-cell">
                                         <div class="ponente-info">
                                             <span class="ponente-nombre">{{ $item->nombre }}</span>
                                             <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil" data-bs-toggle="tooltip" title="Ver perfil del tallerista">
@@ -260,10 +320,10 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
                                             <i class="fas fa-ticket-alt"></i> Inscribirse
                                         </a>
@@ -281,16 +341,28 @@
                         <tbody class="visually-hidden" id="tDos">
                             @forelse ($tDia2 as $item)
                                 <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
-                                    <td>
+                                    <td class="col-horario-td">
                                         <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
                                     </td>
-                                    <td>
+                                    <td class="col-tema-td">
                                         <div class="tema-titulo">{{ $item->tema }}</div>
-                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
-                                            {{ $item->programa ?? 'General' }}
-                                        </span>
+                                        <div class="d-flex flex-wrap align-items-center gap-2 mt-2">
+                                            <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                                {{ $item->programa ?? 'General' }}
+                                            </span>
+                                            <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action btn-inscribirse-mobile d-inline-flex d-md-none">
+                                                <i class="fas fa-ticket-alt"></i> Inscribirse
+                                            </a>
+                                        </div>
+                                        <div class="ponente-mobile-info d-flex align-items-center gap-2 mt-2 pt-1 border-top border-light d-md-none">
+                                            <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1rem;"></span>
+                                            <span class="small fw-semibold text-secondary text-truncate">{{ $item->nombre }}</span>
+                                            <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil-sm ms-auto" data-bs-toggle="tooltip" title="Ver perfil del tallerista">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
                                     </td>
-                                    <td>
+                                    <td class="d-none d-md-table-cell">
                                         <div class="ponente-info">
                                             <span class="ponente-nombre">{{ $item->nombre }}</span>
                                             <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil" data-bs-toggle="tooltip" title="Ver perfil del tallerista">
@@ -298,10 +370,10 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
                                             <i class="fas fa-ticket-alt"></i> Inscribirse
                                         </a>
@@ -319,16 +391,28 @@
                         <tbody class="visually-hidden" id="tTres">
                             @forelse ($tDia3 as $item)
                                 <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
-                                    <td>
+                                    <td class="col-horario-td">
                                         <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
                                     </td>
-                                    <td>
+                                    <td class="col-tema-td">
                                         <div class="tema-titulo">{{ $item->tema }}</div>
-                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
-                                            {{ $item->programa ?? 'General' }}
-                                        </span>
+                                        <div class="d-flex flex-wrap align-items-center gap-2 mt-2">
+                                            <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                                {{ $item->programa ?? 'General' }}
+                                            </span>
+                                            <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action btn-inscribirse-mobile d-inline-flex d-md-none">
+                                                <i class="fas fa-ticket-alt"></i> Inscribirse
+                                            </a>
+                                        </div>
+                                        <div class="ponente-mobile-info d-flex align-items-center gap-2 mt-2 pt-1 border-top border-light d-md-none">
+                                            <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1rem;"></span>
+                                            <span class="small fw-semibold text-secondary text-truncate">{{ $item->nombre }}</span>
+                                            <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil-sm ms-auto" data-bs-toggle="tooltip" title="Ver perfil del tallerista">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
                                     </td>
-                                    <td>
+                                    <td class="d-none d-md-table-cell">
                                         <div class="ponente-info">
                                             <span class="ponente-nombre">{{ $item->nombre }}</span>
                                             <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil" data-bs-toggle="tooltip" title="Ver perfil del tallerista">
@@ -336,10 +420,10 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
                                             <i class="fas fa-ticket-alt"></i> Inscribirse
                                         </a>
@@ -357,16 +441,28 @@
                         <tbody class="visually-hidden" id="tCuatro">
                             @forelse ($tDia4 as $item)
                                 <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
-                                    <td>
+                                    <td class="col-horario-td">
                                         <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
                                     </td>
-                                    <td>
+                                    <td class="col-tema-td">
                                         <div class="tema-titulo">{{ $item->tema }}</div>
-                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
-                                            {{ $item->programa ?? 'General' }}
-                                        </span>
+                                        <div class="d-flex flex-wrap align-items-center gap-2 mt-2">
+                                            <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                                {{ $item->programa ?? 'General' }}
+                                            </span>
+                                            <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action btn-inscribirse-mobile d-inline-flex d-md-none">
+                                                <i class="fas fa-ticket-alt"></i> Inscribirse
+                                            </a>
+                                        </div>
+                                        <div class="ponente-mobile-info d-flex align-items-center gap-2 mt-2 pt-1 border-top border-light d-md-none">
+                                            <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1rem;"></span>
+                                            <span class="small fw-semibold text-secondary text-truncate">{{ $item->nombre }}</span>
+                                            <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil-sm ms-auto" data-bs-toggle="tooltip" title="Ver perfil del tallerista">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
                                     </td>
-                                    <td>
+                                    <td class="d-none d-md-table-cell">
                                         <div class="ponente-info">
                                             <span class="ponente-nombre">{{ $item->nombre }}</span>
                                             <a href="{{ route('conferencista.show', $item->idConferencista) }}" class="btn-icon-perfil" data-bs-toggle="tooltip" title="Ver perfil del tallerista">
@@ -374,10 +470,10 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
                                             <i class="fas fa-ticket-alt"></i> Inscribirse
                                         </a>
@@ -402,34 +498,43 @@
                     <table class="table tabla-actividades table-hover">
                         <thead>
                             <tr>
-                                <th style="width: 22%;">Horario</th>
-                                <th style="width: 38%;">Tema</th>
-                                <th style="width: 22%;">Ponente</th>
-                                <th class="text-center" style="width: 8%;">País</th>
-                                <th class="text-center" style="width: 10%;">Acción</th>
+                                <th class="col-horario">Horario</th>
+                                <th class="col-tema">Tema</th>
+                                <th class="d-none d-md-table-cell" style="width: 22%;">Ponente</th>
+                                <th class="text-center d-none d-md-table-cell" style="width: 8%;">País</th>
+                                <th class="text-center d-none d-md-table-cell" style="width: 10%;">Acción</th>
                             </tr>
                         </thead>
                         <tbody class="visually-hidden" id="pUno">
                             @forelse ($pDia1 as $item)
                                 <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
-                                    <td>
+                                    <td class="col-horario-td">
                                         <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
                                     </td>
-                                    <td>
+                                    <td class="col-tema-td">
                                         <div class="tema-titulo">{{ $item->tema }}</div>
-                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
-                                            {{ $item->programa ?? 'General' }}
-                                        </span>
+                                        <div class="d-flex flex-wrap align-items-center gap-2 mt-2">
+                                            <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                                {{ $item->programa ?? 'General' }}
+                                            </span>
+                                            <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action btn-inscribirse-mobile d-inline-flex d-md-none">
+                                                <i class="fas fa-ticket-alt"></i> Inscribirse
+                                            </a>
+                                        </div>
+                                        <div class="ponente-mobile-info d-flex align-items-center gap-2 mt-2 pt-1 border-top border-light d-md-none">
+                                            <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1rem;"></span>
+                                            <span class="small fw-semibold text-secondary text-truncate">{{ $item->nombre }}</span>
+                                        </div>
                                     </td>
-                                    <td>
+                                    <td class="d-none d-md-table-cell">
                                         <div class="ponente-info">
                                             <span class="ponente-nombre">{{ $item->nombre }}</span>
                                         </div>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
                                             <i class="fas fa-ticket-alt"></i> Inscribirse
                                         </a>
@@ -447,24 +552,33 @@
                         <tbody class="visually-hidden" id="pDos">
                             @forelse ($pDia2 as $item)
                                 <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
-                                    <td>
+                                    <td class="col-horario-td">
                                         <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
                                     </td>
-                                    <td>
+                                    <td class="col-tema-td">
                                         <div class="tema-titulo">{{ $item->tema }}</div>
-                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
-                                            {{ $item->programa ?? 'General' }}
-                                        </span>
+                                        <div class="d-flex flex-wrap align-items-center gap-2 mt-2">
+                                            <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                                {{ $item->programa ?? 'General' }}
+                                            </span>
+                                            <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action btn-inscribirse-mobile d-inline-flex d-md-none">
+                                                <i class="fas fa-ticket-alt"></i> Inscribirse
+                                            </a>
+                                        </div>
+                                        <div class="ponente-mobile-info d-flex align-items-center gap-2 mt-2 pt-1 border-top border-light d-md-none">
+                                            <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1rem;"></span>
+                                            <span class="small fw-semibold text-secondary text-truncate">{{ $item->nombre }}</span>
+                                        </div>
                                     </td>
-                                    <td>
+                                    <td class="d-none d-md-table-cell">
                                         <div class="ponente-info">
                                             <span class="ponente-nombre">{{ $item->nombre }}</span>
                                         </div>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
                                             <i class="fas fa-ticket-alt"></i> Inscribirse
                                         </a>
@@ -482,24 +596,33 @@
                         <tbody class="visually-hidden" id="pTres">
                             @forelse ($pDia3 as $item)
                                 <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
-                                    <td>
+                                    <td class="col-horario-td">
                                         <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
                                     </td>
-                                    <td>
+                                    <td class="col-tema-td">
                                         <div class="tema-titulo">{{ $item->tema }}</div>
-                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
-                                            {{ $item->programa ?? 'General' }}
-                                        </span>
+                                        <div class="d-flex flex-wrap align-items-center gap-2 mt-2">
+                                            <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                                {{ $item->programa ?? 'General' }}
+                                            </span>
+                                            <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action btn-inscribirse-mobile d-inline-flex d-md-none">
+                                                <i class="fas fa-ticket-alt"></i> Inscribirse
+                                            </a>
+                                        </div>
+                                        <div class="ponente-mobile-info d-flex align-items-center gap-2 mt-2 pt-1 border-top border-light d-md-none">
+                                            <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1rem;"></span>
+                                            <span class="small fw-semibold text-secondary text-truncate">{{ $item->nombre }}</span>
+                                        </div>
                                     </td>
-                                    <td>
+                                    <td class="d-none d-md-table-cell">
                                         <div class="ponente-info">
                                             <span class="ponente-nombre">{{ $item->nombre }}</span>
                                         </div>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
                                             <i class="fas fa-ticket-alt"></i> Inscribirse
                                         </a>
@@ -517,24 +640,33 @@
                         <tbody class="visually-hidden" id="pCuatro">
                             @forelse ($pDia4 as $item)
                                 <tr class="{{ $item->programa == 'Sistemas' ? 'row-programa-sistemas' : 'row-programa-civil' }}">
-                                    <td>
+                                    <td class="col-horario-td">
                                         <span class="horario-badge"><i class="far fa-clock me-1 text-primary"></i> {{ $item->horario }}</span>
                                     </td>
-                                    <td>
+                                    <td class="col-tema-td">
                                         <div class="tema-titulo">{{ $item->tema }}</div>
-                                        <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
-                                            {{ $item->programa ?? 'General' }}
-                                        </span>
+                                        <div class="d-flex flex-wrap align-items-center gap-2 mt-2">
+                                            <span class="tema-programa-tag {{ $item->programa == 'Sistemas' ? 'tema-programa-sistemas' : 'tema-programa-civil' }}">
+                                                {{ $item->programa ?? 'General' }}
+                                            </span>
+                                            <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action btn-inscribirse-mobile d-inline-flex d-md-none">
+                                                <i class="fas fa-ticket-alt"></i> Inscribirse
+                                            </a>
+                                        </div>
+                                        <div class="ponente-mobile-info d-flex align-items-center gap-2 mt-2 pt-1 border-top border-light d-md-none">
+                                            <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1rem;"></span>
+                                            <span class="small fw-semibold text-secondary text-truncate">{{ $item->nombre }}</span>
+                                        </div>
                                     </td>
-                                    <td>
+                                    <td class="d-none d-md-table-cell">
                                         <div class="ponente-info">
                                             <span class="ponente-nombre">{{ $item->nombre }}</span>
                                         </div>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <span class="fi fi-{{ $item->pais }} shadow-sm rounded-1" style="font-size: 1.3rem;"></span>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <a href="{{ route('inscripcion', $item->id) }}" class="btn-inscribirse-action">
                                             <i class="fas fa-ticket-alt"></i> Inscribirse
                                         </a>

@@ -31,7 +31,7 @@ class InscripcionController extends Controller
      */
     public function inscripcion($idEvento)
     {
-        $evento = Evento::find($idEvento);
+        $evento = Evento::with('conferencista')->findOrFail($idEvento);
         return view('inscripcion', compact('evento'));
     }
 

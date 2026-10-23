@@ -583,6 +583,72 @@ textarea {
     color: #ffffff !important;
 }
 
+.btn-inscribirse-mobile {
+    font-size: 0.78rem !important;
+    padding: 0.32rem 0.85rem !important;
+    border-radius: 9999px !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    box-shadow: 0 2px 8px rgba(0, 172, 201, 0.3) !important;
+}
+
+.btn-icon-perfil-sm {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    font-size: 0.72rem;
+    border-radius: 50%;
+    color: #00acc9;
+    background: rgba(0, 172, 201, 0.1);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.btn-icon-perfil-sm:hover {
+    background: #00acc9;
+    color: #ffffff;
+}
+
+.ponente-mobile-info {
+    font-size: 0.82rem;
+    color: #475569;
+}
+
+@media (max-width: 767.98px) {
+    .tabla-actividades thead th.col-horario,
+    .tabla-actividades tbody td.col-horario-td {
+        width: 32% !important;
+        padding: 0.85rem 0.6rem !important;
+    }
+    
+    .tabla-actividades thead th.col-tema,
+    .tabla-actividades tbody td.col-tema-td {
+        width: 68% !important;
+        padding: 0.85rem 0.75rem !important;
+    }
+
+    .horario-badge {
+        font-size: 0.76rem !important;
+        padding: 0.32rem 0.5rem !important;
+        white-space: normal !important;
+        line-height: 1.25;
+        text-align: center;
+    }
+}
+
+@media (min-width: 768px) {
+    .tabla-actividades thead th.col-horario {
+        width: 22% !important;
+    }
+    
+    .tabla-actividades thead th.col-tema {
+        width: 38% !important;
+    }
+}
+
 .empty-state-cell {
     padding: 3.5rem 1rem !important;
     text-align: center;
@@ -920,4 +986,254 @@ textarea {
 .btn-gestion-secondary:hover {
     background: #e2e8f0;
     color: #1e293b;
+}
+
+/* ==========================================================================
+   Vista de Inscripción a Eventos (Moderna y Sobria)
+   ========================================================================== */
+
+.inscripcion-page-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0b1329 0%, #1e293b 50%, #0e7490 100%);
+    position: relative;
+    padding: 2.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inscripcion-container {
+    width: 100%;
+    max-width: 1060px;
+    margin: 0 auto;
+}
+
+.btn-inscripcion-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 0.5rem 1.1rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    transition: all 0.25s ease;
+}
+
+.btn-inscripcion-back:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateX(-3px);
+}
+
+.inscripcion-card {
+    background: #ffffff;
+    border-radius: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+    min-width: 0 !important;
+}
+
+/* Panel Izquierdo: Resumen del Evento */
+.inscripcion-summary-panel {
+    background: linear-gradient(180deg, #0f172a 0%, #172554 100%);
+    color: #ffffff;
+    padding: 2.75rem 2.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.inscripcion-event-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: rgba(0, 172, 201, 0.18);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.inscripcion-event-badge.tag-civil {
+    background: rgba(245, 158, 11, 0.18);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.inscripcion-event-title {
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #ffffff;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.inscripcion-detail-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+    font-size: 0.92rem;
+    color: #cbd5e1;
+}
+
+.inscripcion-detail-item i {
+    font-size: 1.1rem;
+    color: #38bdf8;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+}
+
+.inscripcion-ponente-box {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.85rem;
+    padding: 1rem;
+    margin-top: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.inscripcion-ponente-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #00acc9;
+}
+
+.inscripcion-ponente-avatar-placeholder {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(0, 172, 201, 0.2);
+    color: #38bdf8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    border: 2px solid rgba(56, 189, 248, 0.3);
+    flex-shrink: 0;
+}
+
+.alert-inscripcion-info {
+    background: rgba(14, 116, 144, 0.2);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 0.75rem;
+    padding: 0.85rem 1rem;
+    font-size: 0.82rem;
+    color: #e0f2fe;
+    margin-top: 1.5rem;
+}
+
+/* Panel Derecho: Formulario */
+.inscripcion-form-panel {
+    padding: 2.75rem 2.5rem;
+    background: #ffffff;
+}
+
+.inscripcion-form-group {
+    margin-bottom: 1.25rem;
+}
+
+.inscripcion-form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 0.45rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.inscripcion-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.inscripcion-input-icon {
+    position: absolute;
+    left: 1rem;
+    color: #94a3b8;
+    font-size: 1rem;
+    pointer-events: none;
+    z-index: 4;
+}
+
+.inscripcion-input-group .form-control,
+.inscripcion-input-group .form-select {
+    padding-left: 2.75rem;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+    font-size: 0.95rem;
+    border-radius: 0.75rem;
+    border: 1.5px solid #e2e8f0;
+    color: #1e293b;
+    background-color: #f8fafc;
+    transition: all 0.2s ease;
+}
+
+.inscripcion-input-group .form-control:focus,
+.inscripcion-input-group .form-select:focus {
+    background-color: #ffffff;
+    border-color: #00acc9;
+    box-shadow: 0 0 0 3px rgba(0, 172, 201, 0.15);
+}
+
+.btn-submit-inscripcion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 0.75rem;
+    border: none;
+    color: #ffffff;
+    background: linear-gradient(135deg, #0093E9 0%, #00acc9 100%);
+    box-shadow: 0 4px 15px rgba(0, 172, 201, 0.35);
+    transition: all 0.25s ease;
+    margin-top: 1.5rem;
+    cursor: pointer;
+}
+
+.btn-submit-inscripcion:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 172, 201, 0.45);
+    color: #ffffff;
+}
+
+.btn-submit-inscripcion:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+}
+
+@media (max-width: 991.98px) {
+    .inscripcion-page-wrapper {
+        padding: 1.5rem 0.75rem;
+    }
+    .inscripcion-summary-panel {
+        padding: 2rem 1.5rem;
+    }
+    .inscripcion-form-panel {
+        padding: 2rem 1.5rem;
+    }
+    .inscripcion-event-title {
+        font-size: 1.25rem;
+    }
 }

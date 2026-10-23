@@ -1,12 +1,11 @@
 @extends('layouts.gestion')
 
 @section('content')
-    <div class="container">
-        <form action="{{ url( '/evento/' . $evento->id ) }}" method="POST"  enctype="multipart/form-data">
-            @csrf
-            {{ method_field( 'PATCH' ) }}
-            @include('evento.form', [ 'modo' => 'Editar' ])
-        </form>
-
-    </div>
+<div class="py-2">
+    <form action="{{ route('evento.update', $evento->id) }}" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
+        @csrf
+        @method('PATCH')
+        @include('evento.form', ['modo' => 'Editar'])
+    </form>
+</div>
 @endsection

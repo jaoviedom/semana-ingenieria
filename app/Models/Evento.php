@@ -10,4 +10,9 @@ class Evento extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function conferencista()
+    {
+        return $this->belongsTo(Conferencista::class, 'conferencista_id');
+    }
 }

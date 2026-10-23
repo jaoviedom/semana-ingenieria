@@ -36,8 +36,20 @@ Route::resource('conferencista', ConferencistaController::class);
 
 
 Route::get('gestion', function () {
-    $eventos = Evento::orderBy('dia', 'asc')->orderBy('tipoEvento', 'asc')->orderBy('tema', 'asc')->get();
-    return view('gestion.index', compact('eventos'));
+    $eventos = Evento::with('conferencista')->orderBy('dia', 'asc')->orderBy('horario', 'asc')->get();
+    $conferencistasCount = \App\Models\Conferencista::count();
+    $conferenciasCount = Evento::where('tipoEvento', 'CONFERENCIA')->count();
+    $talleresCount = Evento::where('tipoEvento', 'TALLER')->count();
+    $ponenciasCount = Evento::where('tipoEvento', 'PONENCIA')->count();
+    $inscripcionesCount = \App\Models\Inscripcion::count();
+    return view('gestion.index', compact(
+        'eventos',
+        'conferencistasCount',
+        'conferenciasCount',
+        'talleresCount',
+        'ponenciasCount',
+        'inscripcionesCount'
+    ));
 })->name('gestion.index');
 
 Route::get('informes/asistencia', [InscripcionController::class, 'exportarAsistencia'])->name('exportarAsistencia');

@@ -1,11 +1,10 @@
 @extends('layouts.gestion')
 
 @section('content')
-    <div class="container">
-
-        <form action="{{ url( '/conferencista/' )}}" method="post" class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
-            @csrf
-            @include('conferencista.form', [ 'modo' => 'Crear' ])
-        </form>
-    </div>
+<div class="py-2">
+    <form action="{{ route('conferencista.store') }}" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
+        @csrf
+        @include('conferencista.form', ['modo' => 'Crear'])
+    </form>
+</div>
 @endsection

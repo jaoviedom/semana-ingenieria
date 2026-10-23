@@ -11,6 +11,11 @@ class Conferencista extends Model
 
     protected $guarded = [];
 
+    public function eventos()
+    {
+        return $this->hasMany(Evento::class, 'conferencista_id');
+    }
+
     /**
      * Obtener la URL de la foto o la imagen genérica por defecto.
      *

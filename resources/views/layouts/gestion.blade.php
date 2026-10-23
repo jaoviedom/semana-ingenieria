@@ -12,137 +12,104 @@
 </head>
 <body>
     <header>
-        <div>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-                <div class="container">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="{{ route('welcome') }}">Página evento</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="{{ route('gestion.index') }}">Home</a>
-                            </li>
-                            @guest
-                            <li class="ms-5 nav-item">
-                                <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-sign-in-alt"></i></a>
-                            </li>
-                            @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('conferencista.index') }}">Conferencistas</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('evento.index') }}">Eventos</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Generar QR Calificación
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    @foreach (($eventos ?? []) as $evento)
-                                        <li><a class="dropdown-item" href="{{ route('enlaceCalificacion', $evento->id) }}">{{ $evento->tipoEvento }} - {{ $evento->tema }}</a></li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Reportes
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="{{ route('exportarAsistencia') }}">Asistencia a eventos</a></li>
-                                    <li><a class="dropdown-item" href="#">Evaluación de eventos</a></li>
-                                </ul>
-                            </li>
-                            @endguest
-                        </ul>
+        <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #0f172a; padding: 0.75rem 0;">
+            <div class="container">
+                <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{{ route('gestion.index') }}" style="font-size: 1.15rem; letter-spacing: -0.02em;">
+                    <span class="badge bg-primary px-2 py-1 rounded-2" style="font-size: 0.75rem; background-color: #00acc9 !important;">VII BIENAL</span>
+                    <span>Panel de Gestión</span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3 gap-lg-1">
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('gestion.index') ? 'active fw-semibold text-white' : '' }}" href="{{ route('gestion.index') }}">
+                                <i class="fas fa-th-large me-1 text-info"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('welcome') }}" target="_blank">
+                                <i class="fas fa-external-link-alt me-1 opacity-75"></i> Ver Portal
+                            </a>
+                        </li>
                         @auth
-                        <a class="nav-link me-2" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Salir">
-                            <i class="fas fa-sign-out-alt"></i>
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('conferencista*') ? 'active fw-semibold text-white' : '' }}" href="{{ route('conferencista.index') }}">
+                                <i class="fas fa-user-tie me-1 text-info"></i> Conferencistas
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('evento*') ? 'active fw-semibold text-white' : '' }}" href="{{ route('evento.index') }}">
+                                <i class="fas fa-calendar-alt me-1 text-info"></i> Eventos
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-qrcode me-1 text-info"></i> QR Calificación
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark shadow" aria-labelledby="navbarDropdown" style="max-height: 380px; overflow-y: auto;">
+                                @forelse (($eventos ?? []) as $evento)
+                                    <li><a class="dropdown-item py-2" href="{{ route('enlaceCalificacion', $evento->id) }}"><span class="badge bg-secondary me-1">{{ $evento->tipoEvento }}</span> {{ \Illuminate\Support\Str::limit($evento->tema, 45) }}</a></li>
+                                @empty
+                                    <li><span class="dropdown-item text-muted">No hay eventos registrados</span></li>
+                                @endforelse
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownReportes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-chart-bar me-1 text-info"></i> Reportes
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark shadow" aria-labelledby="navbarDropdownReportes">
+                                <li><a class="dropdown-item py-2" href="{{ route('exportarAsistencia') }}"><i class="fas fa-file-excel me-2 text-success"></i> Asistencia a eventos</a></li>
+                            </ul>
+                        </li>
                         @endauth
+                    </ul>
+
+                    <div class="d-flex align-items-center gap-3">
+                        @guest
+                            <a class="btn btn-sm btn-outline-light rounded-pill px-3" href="{{ route('login') }}">
+                                <i class="fas fa-sign-in-alt me-1"></i> Iniciar Sesión
+                            </a>
+                        @else
+                            <span class="text-white-50 small d-none d-lg-inline">
+                                <i class="fas fa-user-circle me-1"></i> {{ Auth::user()->name ?? 'Administrador' }}
+                            </span>
+                            <a class="btn btn-sm btn-outline-danger rounded-pill px-3" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cerrar sesión">
+                                <i class="fas fa-sign-out-alt me-1"></i> Salir
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        @endguest
                     </div>
                 </div>
-            </nav>
-        </div>
-
+            </div>
+        </nav>
     </header>
 
-    <main>
+    <main class="py-4 bg-light" style="min-height: calc(100vh - 160px);">
         <div class="container">
             @yield('content')
         </div>
     </main>
 
-    <footer class="container-fluid pt-5 bg-azul-oscuro text-white">
-        <div class="row">
-            <div class="col-md"></div>
-            <div class="col-md"></div>
-            <div class="col-md py-3">
-                <h3 class="footer-heading">Síguenos</h3>
-                <a href="https://www.facebook.com/uccibaguespinal/" target="_blank" class="link-light me-2"><i class="fab fa-facebook-square fa-3x"></i></a>
-                <a href="https://twitter.com/uccibaguespinal" target="_blank" class="link-light me-2"><i class="fab fa-twitter-square fa-3x"></i></a>
-                <a href="https://www.youtube.com/channel/UCwLDxE0BoaD7tHL8ygbmNFw" target="_blank" class="link-light me-2"><i class="fab fa-youtube-square fa-3x"></i></a>
-                <a href="https://www.flickr.com/photos/ucooperativadecolombia" target="_blank" class="link-light me-2"><i class="fab fa-flickr fa-3x"></i></a>
-                <a href="https://www.instagram.com/ucc_ibaguespinal/" target="_blank" class="link-light me-2"><i class="fab fa-instagram fa-3x"></i></a>
-            </div>
-        </div>
-        <div class="row text-center bg-azul-claro py-3">
-            <div class="container">
-                <p>Universidad Cooperativa de Colombia - Campus Ibagué, Espinal</p>
-                <p>Otra creación de Jose Oviedo & Andrés Arciniegas
-                    <a href="http://desarrollandoapps.net" target="_blank" class="text-decoration-none link-light">
-                        <img src="{{ asset('images/logo-da.svg') }}" alt="Logo desarrollandoApps" class="logo-da ms-3">
-                </a>
-                </p>
-            </div>
+    <footer class="container-fluid bg-azul-oscuro text-white pt-4">
+        <div class="container text-center py-3">
+            <p class="mb-1 text-white-50">VII Bienal Internacional de Ingeniería · Universidad Cooperativa de Colombia - Campus Ibagué, Espinal</p>
+            <p class="small text-white-50 mb-0">Panel de Gestión y Administración</p>
         </div>
     </footer>
 
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script>
-        // Set the date we're counting down to
-        var countDownDate = new Date("May 12, 2022 08:00:00").getTime();
-        
-        // Update the count down every 1 second
-        var x = setInterval(function() {
-        
-          // Get today's date and time
-          var now = new Date().getTime();
-            
-          // Find the distance between now and the count down date
-          var distance = countDownDate - now;
-            
-          // Time calculations for days, hours, minutes and seconds
-          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-          // Output the result in an element 
-          document.getElementById("dias").innerHTML = days;
-          document.getElementById("horas").innerHTML = hours;
-          document.getElementById("minutos").innerHTML = minutes;
-          document.getElementById("segundos").innerHTML = seconds;
-            
-          // If the count down is over, write some text 
-          if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("demo").innerHTML = "EXPIRED";
-          }
-        }, 1000);
-    </script>
-    <script>
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
-
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
     </script>
 
     @yield('scripts')

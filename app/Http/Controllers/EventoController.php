@@ -107,8 +107,8 @@ class EventoController extends Controller
 
     public function index()
     {
-        $eventos = Evento::paginate(5);
-        $datos['eventos'] = Evento::paginate(5);
+        $eventos = Evento::with('conferencista')->orderBy('dia', 'asc')->orderBy('horario', 'asc')->paginate(10);
+        $datos['eventos'] = $eventos;
         return view('evento.index', compact('datos', 'eventos' ));         
     }
 
@@ -153,10 +153,10 @@ class EventoController extends Controller
         // $this->validate( $request, $campos, $mensajes );
 
         $datosEvento = request()->except( '_token' );
-        $dia = Dia::where('numero', $request->dia)->first();
-        $fecha = $dia->fecha;
+        $dia = Dia::where('numero', $request->dia)->orWhere('id', $request->dia)->first();
+        $fecha = $dia ? $dia->fecha : ($request->fecha ?? '28/10/2026');
         $evento = new Evento();
-        $evento->dia = $dia->numero;
+        $evento->dia = $dia ? $dia->numero : (int)$request->dia;
         $evento->fecha = $fecha;
         $evento->horario = $request->horario;
         $evento->tema = $request->tema;
@@ -165,6 +165,7 @@ class EventoController extends Controller
         $evento->enlaceVirtual = $request->enlaceVirtual;
         $evento->colaborador = $request->colaborador;
         $evento->tipoEvento = $request->tipoEvento;
+        $evento->programa = $request->programa ?? 'Sistemas';
         $evento->save();
 
         return redirect( 'evento' )->with( 'mensaje', 'Evento agregado con éxito');

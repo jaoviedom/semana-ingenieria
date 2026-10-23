@@ -1,7 +1,8 @@
 FROM php:8.3-fpm
 
-# Instalar dependencias del sistema operativo
+# Instalar Nginx y dependencias requeridas del sistema
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    nginx \
     git \
     curl \
     libpng-dev \
@@ -32,11 +33,21 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Directorio de trabajo
 WORKDIR /var/www/html
 
-# Copiar script de arranque
+# Configurar Nginx para Laravel
+RUN rm -f /etc/nginx/sites-enabled/default
+COPY docker/nginx/conf.d/app.conf /etc/nginx/conf.d/default.conf
+
+# Copiar el código fuente de la aplicación
+COPY . /var/www/html
+
+# Instalar dependencias PHP de Composer (optimizado para producción)
+RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# Script de arranque
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-EXPOSE 9000
+# Puerto HTTP por defecto (Render asigna $PORT en ejecución)
+EXPOSE 80
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["php-fpm"]

@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile
     container_name: semana_app
     restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8080}:80"
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
@@ -19,20 +21,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-
-  web:
-    image: nginx:alpine
-    container_name: semana_web
-    restart: unless-stopped
-    ports:
-      - "${APP_PORT:-8080}:80"
-    volumes:
-      - ./:/var/www/html
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
-    networks:
-      - semana_net
-    depends_on:
-      - app
 
   db:
     image: mysql:8.0

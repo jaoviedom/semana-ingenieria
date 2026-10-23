@@ -12,4 +12,24 @@ mkdir -p /var/www/html/storage/framework/cache/data \
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache || true
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache || true
 
-exec "$@"
+# Eliminar sitios default conflictivos de Nginx
+rm -f /etc/nginx/sites-enabled/default || true
+
+# Configurar el puerto dinámico de Render ($PORT) o puerto 80 por defecto
+PORT_HTTP="${PORT:-80}"
+echo "==> Configurando Nginx en el puerto HTTP ${PORT_HTTP}..."
+sed -i "s/listen [0-9]*;/listen ${PORT_HTTP};/g" /etc/nginx/conf.d/default.conf
+
+# Ejecutar migraciones si se especifica la variable de entorno
+if [ "$RUN_MIGRATIONS" = "true" ]; then
+    echo "==> Ejecutando migraciones de base de datos..."
+    php artisan migrate --force || true
+fi
+
+# Iniciar PHP-FPM en segundo plano
+echo "==> Iniciando PHP-FPM..."
+php-fpm -D
+
+# Iniciar Nginx en primer plano
+echo "==> Iniciando Nginx..."
+exec nginx -g "daemon off;"

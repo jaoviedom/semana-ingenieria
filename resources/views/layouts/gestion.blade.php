@@ -12,15 +12,15 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #0f172a; padding: 0.75rem 0;">
+        <nav class="navbar navbar-expand-lg navbar-dark shadow-sm navbar-gestion">
             <div class="container">
-                <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{{ route('gestion.index') }}" style="font-size: 1.15rem; letter-spacing: -0.02em;">
-                    <span class="badge bg-primary px-2 py-1 rounded-2" style="font-size: 0.75rem; background-color: #00acc9 !important;">VII BIENAL</span>
+                <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('gestion.index') }}">
+                    <span class="badge rounded-1" style="font-size: 0.68rem; background-color: #00acc9 !important; padding: 0.25rem 0.45rem;">VII BIENAL</span>
                     <span>Panel de Gestión</span>
                 </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <button class="navbar-toggler py-1 px-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon" style="width: 1.25em; height: 1.25em;"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">

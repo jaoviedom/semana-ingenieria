@@ -72,9 +72,69 @@ textarea {
     padding-top: 0 !important;
 }
 
-nav .nav-link {
-    font-size: 1.5rem !important;
+#banner nav .nav-link {
+    font-size: 1.15rem;
     color: #FFF !important;
+}
+
+/* Navbar para el módulo de Gestión */
+.navbar-gestion {
+    background-color: #0f172a !important;
+    padding-top: 0.45rem !important;
+    padding-bottom: 0.45rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.navbar-gestion .navbar-brand {
+    font-size: 0.95rem !important;
+    font-weight: 700;
+    color: #ffffff !important;
+    letter-spacing: -0.01em;
+}
+
+.navbar-gestion .nav-link {
+    font-size: 0.86rem !important;
+    font-weight: 500 !important;
+    color: #94a3b8 !important;
+    padding: 0.38rem 0.75rem !important;
+    border-radius: 0.5rem;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.navbar-gestion .nav-link:hover {
+    color: #f8fafc !important;
+    background-color: rgba(255, 255, 255, 0.06);
+    text-decoration: none !important;
+}
+
+.navbar-gestion .nav-link.active {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    font-weight: 600 !important;
+}
+
+.navbar-gestion .dropdown-menu {
+    font-size: 0.84rem;
+    border-radius: 0.65rem;
+    padding: 0.4rem;
+    border: 1px solid #334155;
+    background-color: #1e293b;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+.navbar-gestion .dropdown-item {
+    font-size: 0.84rem;
+    color: #cbd5e1;
+    border-radius: 0.35rem;
+    padding: 0.4rem 0.7rem;
+}
+
+.navbar-gestion .dropdown-item:hover {
+    color: #ffffff;
+    background-color: #334155;
 }
 
 .nav-link:hover {
